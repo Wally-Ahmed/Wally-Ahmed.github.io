@@ -24,7 +24,11 @@ const num = String(index + 1).padStart(2, '0');
 ---
 
 <article class="reveal grid min-w-0 items-center gap-10 lg:grid-cols-12 lg:gap-16">
-  <div class={`lg:col-span-7 ${flipped ? 'lg:order-2' : ''}`}>
+  {/* min-w-0 on the grid columns, not just on the text inside: a grid item
+      defaults to min-width:auto and will not shrink below its content's
+      min-content width, so a long demo URL widened the whole card past the
+      viewport. */}
+  <div class={`min-w-0 lg:col-span-7 ${flipped ? 'lg:order-2' : ''}`}>
     <a
       href={liveUrl}
       target="_blank"
@@ -36,7 +40,10 @@ const num = String(index + 1).padStart(2, '0');
         <span class="h-2.5 w-2.5 rounded-full bg-[#ff5f57]"></span>
         <span class="h-2.5 w-2.5 rounded-full bg-[#febc2e]"></span>
         <span class="h-2.5 w-2.5 rounded-full bg-[#28c840]"></span>
-        <span class="ml-3 truncate font-mono text-[0.72rem] text-muted">
+        {/* min-w-0 is load-bearing: a flex item defaults to min-width:auto, so
+            without it `truncate` cannot shrink and the long URL widens the whole
+            card past the viewport instead of ellipsing. */}
+        <span class="ml-3 min-w-0 truncate font-mono text-[0.72rem] text-muted">
           {liveUrl.replace(/^https?:\/\//, '')}
         </span>
       </div>
@@ -62,7 +69,7 @@ const num = String(index + 1).padStart(2, '0');
     </a>
   </div>
 
-  <div class={`lg:col-span-5 ${flipped ? 'lg:order-1' : ''}`}>
+  <div class={`min-w-0 lg:col-span-5 ${flipped ? 'lg:order-1' : ''}`}>
     <div class="mb-4 flex flex-wrap items-center gap-x-3 gap-y-2">
       <span class="font-mono text-xs text-muted">{num}</span>
       <span class="h-px w-8 bg-line"></span>
