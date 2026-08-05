@@ -13,7 +13,7 @@ const tools = all.filter((p) => p.data.kind === 'oss');
 
 const stats = [
   { value: wins.length, label: 'hackathon wins' },
-  { value: tools.length, label: 'MIT tools published' },
+  { value: tools.length, label: 'published open-source projects' },
   { value: all.length, label: 'shipped & clickable' },
 ];
 
@@ -65,19 +65,21 @@ const LINKEDIN = 'https://linkedin.com/in/wally-ahmed';
         that keep them from doing something expensive.
       </p>
 
-      <dl class="reveal mt-10 flex flex-wrap gap-x-10 gap-y-5" data-delay="280">
+      {/* A grid, not a wrapping flex row — label length then cannot orphan a
+          stat onto its own line. */}
+      <dl class="reveal mt-10 grid max-w-lg grid-cols-3 gap-x-6 gap-y-5" data-delay="280">
         {
           stats.map((s) => (
             <div>
               <dt class="sr-only">{s.label}</dt>
               <dd>
                 <span
-                  class="stat font-mono text-4xl font-semibold text-cyan"
+                  class="stat block font-mono text-4xl font-semibold text-cyan"
                   data-target={s.value}
                 >
                   {s.value}
                 </span>
-                <span class="ml-2 text-sm text-muted">{s.label}</span>
+                <span class="mt-1 block text-sm leading-snug text-muted">{s.label}</span>
               </dd>
             </div>
           ))
