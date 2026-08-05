@@ -70,9 +70,17 @@
   .rule-label {
     font-family: var(--font-mono);
     font-size: 0.72rem;
-    letter-spacing: 0.18em;
+    /* Tightened on phones: at 0.18em the hero eyebrow wraps and orphans its
+       last word onto a line of its own. */
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--color-muted);
+  }
+
+  @media (min-width: 480px) {
+    .rule-label {
+      letter-spacing: 0.18em;
+    }
   }
 
   .chip {

@@ -44,7 +44,7 @@ const LINKEDIN = 'https://linkedin.com/in/wally-ahmed';
     </div>
 
     <div
-      class="mx-auto grid w-full max-w-6xl items-center gap-12 px-6 py-24 lg:grid-cols-12 lg:gap-16"
+      class="mx-auto grid w-full max-w-6xl items-center gap-8 px-6 py-14 sm:gap-12 sm:py-24 lg:grid-cols-12 lg:gap-16"
     >
       <div class="lg:col-span-7">
       <p class="rule-label reveal">New York · CS @ CCNY · open to internships</p>
@@ -67,7 +67,7 @@ const LINKEDIN = 'https://linkedin.com/in/wally-ahmed';
 
       {/* A grid, not a wrapping flex row — label length then cannot orphan a
           stat onto its own line. */}
-      <dl class="reveal mt-10 grid max-w-lg grid-cols-3 gap-x-6 gap-y-5" data-delay="280">
+      <dl class="reveal mt-8 grid max-w-lg grid-cols-3 gap-x-4 gap-y-5 sm:mt-10 sm:gap-x-6" data-delay="280">
         {
           stats.map((s) => (
             <div>
@@ -79,14 +79,14 @@ const LINKEDIN = 'https://linkedin.com/in/wally-ahmed';
                 >
                   {s.value}
                 </span>
-                <span class="mt-1 block text-sm leading-snug text-muted">{s.label}</span>
+                <span class="mt-1 block text-xs leading-snug text-muted sm:text-sm">{s.label}</span>
               </dd>
             </div>
           ))
         }
       </dl>
 
-      <div class="reveal mt-11 flex flex-wrap gap-3" data-delay="380">
+      <div class="reveal mt-9 flex flex-wrap gap-3 sm:mt-11" data-delay="380">
         <a
           href="#work"
           class="rounded-lg bg-paper px-6 py-3 text-sm font-semibold text-ink transition-colors hover:bg-cyan"
@@ -121,7 +121,7 @@ const LINKEDIN = 'https://linkedin.com/in/wally-ahmed';
       </div>
 
       <div class="reveal order-first lg:order-none lg:col-span-5" data-delay="140">
-        <div class="relative mx-auto w-[190px] sm:w-[240px] lg:ml-auto lg:mr-0 lg:w-full lg:max-w-[360px]">
+        <div class="relative mx-auto w-[215px] sm:w-[250px] lg:ml-auto lg:mr-0 lg:w-full lg:max-w-[360px]">
           {/* Gradient bleed ties the portrait to the mesh behind it. */}
           <div
             class="absolute -inset-4 -z-10 rounded-3xl bg-[linear-gradient(135deg,var(--color-cyan),var(--color-violet))] opacity-25 blur-3xl"
@@ -130,8 +130,8 @@ const LINKEDIN = 'https://linkedin.com/in/wally-ahmed';
           <Image
             src={portrait}
             alt="Wally Ahmed"
-            widths={[240, 360, 720]}
-            sizes="(max-width: 640px) 190px, (max-width: 1024px) 240px, 360px"
+            widths={[240, 360, 500, 720]}
+            sizes="(max-width: 640px) 215px, (max-width: 1024px) 250px, 360px"
             class="w-full rounded-2xl border border-line"
             loading="eager"
           />
@@ -142,8 +142,8 @@ const LINKEDIN = 'https://linkedin.com/in/wally-ahmed';
 
   <!-- ── Selected work ────────────────────────────────────────────── -->
   <main>
-    <section id="work" class="mx-auto max-w-6xl scroll-mt-16 px-6 py-20 sm:py-28">
-      <div class="reveal mb-16 flex items-end justify-between gap-6 border-b border-line pb-6">
+    <section id="work" class="mx-auto max-w-6xl scroll-mt-16 px-6 py-14 sm:py-28">
+      <div class="reveal mb-10 flex items-end sm:mb-16 justify-between gap-6 border-b border-line pb-6">
         <div>
           <p class="rule-label">01 — Selected work</p>
           <h2 class="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">Hackathon wins</h2>
@@ -153,7 +153,7 @@ const LINKEDIN = 'https://linkedin.com/in/wally-ahmed';
         </p>
       </div>
 
-      <div class="space-y-24 sm:space-y-32">
+      <div class="space-y-16 sm:space-y-32">
         {
           wins.map((p, i) => (
             <ProjectCard
@@ -174,8 +174,8 @@ const LINKEDIN = 'https://linkedin.com/in/wally-ahmed';
     </section>
 
     <!-- ── Open source ──────────────────────────────────────────────── -->
-    <section id="open-source" class="mx-auto max-w-6xl scroll-mt-16 px-6 py-20 sm:py-28">
-      <div class="reveal mb-16 flex items-end justify-between gap-6 border-b border-line pb-6">
+    <section id="open-source" class="mx-auto max-w-6xl scroll-mt-16 px-6 py-14 sm:py-28">
+      <div class="reveal mb-10 flex items-end sm:mb-16 justify-between gap-6 border-b border-line pb-6">
         <div>
           <p class="rule-label">02 — MIT licensed</p>
           <h2 class="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">
@@ -206,7 +206,7 @@ const LINKEDIN = 'https://linkedin.com/in/wally-ahmed';
     </section>
 
     <!-- ── About ────────────────────────────────────────────────────── -->
-    <section id="about" class="mx-auto max-w-6xl scroll-mt-16 px-6 py-20 sm:py-28">
+    <section id="about" class="mx-auto max-w-6xl scroll-mt-16 px-6 py-14 sm:py-28">
       <p class="rule-label reveal">03 — About</p>
       <h2 class="reveal mt-3 text-4xl font-bold tracking-tight sm:text-5xl">Background</h2>
 
@@ -235,7 +235,7 @@ const LINKEDIN = 'https://linkedin.com/in/wally-ahmed';
 
     <!-- ── Contact ──────────────────────────────────────────────────── -->
     <section id="contact" class="border-t border-line">
-      <div class="mx-auto max-w-6xl px-6 py-20 sm:py-28">
+      <div class="mx-auto max-w-6xl px-6 py-14 sm:py-28">
         <p class="rule-label reveal">04 — Contact</p>
         <h2
           class="reveal mt-4 text-[clamp(2.4rem,7vw,5.5rem)] font-extrabold leading-[0.9] tracking-[-0.03em]"
