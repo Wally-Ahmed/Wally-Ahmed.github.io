@@ -1,0 +1,307 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import portrait from '../assets/wally.png';
+import Base from '../layouts/Base.astro';
+import MeshHero from '../components/MeshHero.tsx';
+import ProjectCard from '../components/ProjectCard.astro';
+import ToolCard from '../components/ToolCard.astro';
+
+const all = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+const wins = all.filter((p) => p.data.kind === 'win');
+const tools = all.filter((p) => p.data.kind === 'oss');
+
+const stats = [
+  { value: wins.length, label: 'hackathon wins' },
+  { value: tools.length, label: 'MIT tools published' },
+  { value: all.length, label: 'shipped & clickable' },
+];
+
+const EMAIL = 'wally00.dev@gmail.com';
+const GITHUB = 'https://github.com/Wally-Ahmed';
+const LINKEDIN = 'https://linkedin.com/in/wally-ahmed';
+---
+
+<Base
+  title="Wally Ahmed — Infrastructure for AI agents"
+  description="Software engineer building infrastructure for AI agents: delegation, coordination, and safety. Three hackathon wins and four MIT-licensed developer tools."
+>
+  <!-- ── Hero ─────────────────────────────────────────────────────── -->
+  <header class="relative isolate flex min-h-[92vh] items-center overflow-hidden">
+    <div class="absolute inset-0 -z-10">
+      <MeshHero client:load />
+    </div>
+    {/* Both columns now hold content, so the scrim is an even wash that keeps
+        type and portrait legible while the mesh still reads behind them. */}
+    <div
+      class="absolute inset-0 -z-10 bg-[linear-gradient(100deg,var(--color-ink)_0%,color-mix(in_oklab,var(--color-ink)_82%,transparent)_42%,color-mix(in_oklab,var(--color-ink)_58%,transparent)_100%)]"
+    >
+    </div>
+    <!-- Blend the canvas into the section below it. -->
+    <div
+      class="absolute inset-x-0 bottom-0 -z-10 h-40 bg-[linear-gradient(to_bottom,transparent,var(--color-ink))]"
+    >
+    </div>
+
+    <div
+      class="mx-auto grid w-full max-w-6xl items-center gap-12 px-6 py-24 lg:grid-cols-12 lg:gap-16"
+    >
+      <div class="lg:col-span-7">
+      <p class="rule-label reveal">New York · CS @ CCNY · open to internships</p>
+
+      <h1
+        class="reveal mt-6 text-[clamp(3.2rem,11vw,9.5rem)] font-extrabold leading-[0.86] tracking-[-0.04em]"
+        data-delay="80"
+      >
+        Wally<br />Ahmed
+      </h1>
+
+      <p
+        class="reveal mt-8 max-w-2xl text-[clamp(1.15rem,2.4vw,1.7rem)] leading-snug text-paper/85"
+        data-delay="180"
+      >
+        I build the infrastructure AI agents run on —
+        <span class="gradient-text font-semibold">delegation, coordination, and the guardrails</span>
+        that keep them from doing something expensive.
+      </p>
+
+      <dl class="reveal mt-10 flex flex-wrap gap-x-10 gap-y-5" data-delay="280">
+        {
+          stats.map((s) => (
+            <div>
+              <dt class="sr-only">{s.label}</dt>
+              <dd>
+                <span
+                  class="stat font-mono text-4xl font-semibold text-cyan"
+                  data-target={s.value}
+                >
+                  {s.value}
+                </span>
+                <span class="ml-2 text-sm text-muted">{s.label}</span>
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+
+      <div class="reveal mt-11 flex flex-wrap gap-3" data-delay="380">
+        <a
+          href="#work"
+          class="rounded-lg bg-paper px-6 py-3 text-sm font-semibold text-ink transition-colors hover:bg-cyan"
+        >
+          See the work
+        </a>
+        <a
+          href="/resume.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="rounded-lg border border-line px-6 py-3 text-sm font-semibold transition-colors hover:border-cyan hover:text-cyan"
+        >
+          Resume
+        </a>
+        <a
+          href={GITHUB}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="rounded-lg border border-line px-6 py-3 text-sm font-semibold transition-colors hover:border-cyan hover:text-cyan"
+        >
+          GitHub
+        </a>
+        <a
+          href={LINKEDIN}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="rounded-lg border border-line px-6 py-3 text-sm font-semibold transition-colors hover:border-cyan hover:text-cyan"
+        >
+          LinkedIn
+        </a>
+      </div>
+      </div>
+
+      <div class="reveal order-first lg:order-none lg:col-span-5" data-delay="140">
+        <div class="relative mx-auto w-[190px] sm:w-[240px] lg:ml-auto lg:mr-0 lg:w-full lg:max-w-[360px]">
+          {/* Gradient bleed ties the portrait to the mesh behind it. */}
+          <div
+            class="absolute -inset-4 -z-10 rounded-3xl bg-[linear-gradient(135deg,var(--color-cyan),var(--color-violet))] opacity-25 blur-3xl"
+          >
+          </div>
+          <Image
+            src={portrait}
+            alt="Wally Ahmed"
+            widths={[240, 360, 720]}
+            sizes="(max-width: 640px) 190px, (max-width: 1024px) 240px, 360px"
+            class="w-full rounded-2xl border border-line"
+            loading="eager"
+          />
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Selected work ────────────────────────────────────────────── -->
+  <main>
+    <section id="work" class="mx-auto max-w-6xl scroll-mt-16 px-6 py-20 sm:py-28">
+      <div class="reveal mb-16 flex items-end justify-between gap-6 border-b border-line pb-6">
+        <div>
+          <p class="rule-label">01 — Selected work</p>
+          <h2 class="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">Hackathon wins</h2>
+        </div>
+        <p class="hidden max-w-xs text-sm leading-relaxed text-muted sm:block">
+          Every one of these is deployed and running right now. Click any screenshot.
+        </p>
+      </div>
+
+      <div class="space-y-24 sm:space-y-32">
+        {
+          wins.map((p, i) => (
+            <ProjectCard
+              index={i}
+              title={p.data.title}
+              award={p.data.award!}
+              event={p.data.event!}
+              blurb={p.data.blurb}
+              hardPart={p.data.hardPart!}
+              stack={p.data.stack}
+              liveUrl={p.data.liveUrl!}
+              sourceUrl={p.data.sourceUrl}
+              screenshot={p.data.screenshot!}
+            />
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- ── Open source ──────────────────────────────────────────────── -->
+    <section id="open-source" class="mx-auto max-w-6xl scroll-mt-16 px-6 py-20 sm:py-28">
+      <div class="reveal mb-16 flex items-end justify-between gap-6 border-b border-line pb-6">
+        <div>
+          <p class="rule-label">02 — Open source</p>
+          <h2 class="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">
+            Released under <span class="gradient-text">MIT</span>
+          </h2>
+        </div>
+        <p class="hidden max-w-xs text-sm leading-relaxed text-muted sm:block">
+          Model Context Protocol servers that let one coding agent hand work to another.
+        </p>
+      </div>
+
+      <div class="grid gap-6 md:grid-cols-2">
+        {
+          tools.map((p, i) => (
+            <ToolCard
+              title={p.data.title}
+              blurb={p.data.blurb}
+              stack={p.data.stack}
+              language={p.data.language!}
+              stars={p.data.stars ?? 0}
+              installCmd={p.data.installCmd!}
+              sourceUrl={p.data.sourceUrl}
+              delay={i * 70}
+            />
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- ── About ────────────────────────────────────────────────────── -->
+    <section id="about" class="mx-auto max-w-6xl scroll-mt-16 px-6 py-20 sm:py-28">
+      <p class="rule-label reveal">03 — About</p>
+
+      <div class="mt-8 max-w-3xl">
+        <div class="reveal space-y-5 text-lg leading-relaxed text-paper/85">
+            <p>
+            I'm a Computer Science student at the Grove School of Engineering at CCNY, and I
+            spend most of my time on agentic systems — multi-agent meshes, MCP servers, agent
+            benchmarking, and the prompt-injection defenses that make any of it safe to run
+              unattended.
+            </p>
+            <p>
+              The work above follows one thread: getting autonomous agents to hand work to each
+              other reliably, across vendors, without blowing a budget or trusting anything they
+              read. Three of these placed at hackathons. Four are tools I published under MIT and
+              still maintain.
+            </p>
+            <p class="text-muted">
+              I'm looking for a software engineering internship where I can keep building this
+              kind of infrastructure.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Contact ──────────────────────────────────────────────────── -->
+    <section id="contact" class="border-t border-line">
+      <div class="mx-auto max-w-6xl px-6 py-20 sm:py-28">
+        <p class="rule-label reveal">04 — Contact</p>
+        <h2
+          class="reveal mt-4 text-[clamp(2.4rem,7vw,5.5rem)] font-extrabold leading-[0.9] tracking-[-0.03em]"
+        >
+          Let's build<br /><span class="gradient-text">something</span>
+        </h2>
+
+        <div class="reveal mt-12 flex flex-wrap gap-x-10 gap-y-4 font-mono text-sm">
+          <a href={`mailto:${EMAIL}`} class="text-paper inline-flex min-h-11 items-center transition-colors hover:text-cyan">
+            {EMAIL}
+          </a>
+          <a
+            href={GITHUB}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-muted inline-flex min-h-11 items-center transition-colors hover:text-cyan">github.com/Wally-Ahmed</a
+          >
+          <a
+            href={LINKEDIN}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-muted inline-flex min-h-11 items-center transition-colors hover:text-cyan">linkedin.com/in/wally-ahmed</a
+          >
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-muted inline-flex min-h-11 items-center transition-colors hover:text-cyan">resume.pdf</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <footer class="border-t border-line">
+      <div
+        class="mx-auto flex max-w-6xl flex-col gap-2 px-6 py-8 font-mono text-xs text-muted sm:flex-row sm:justify-between"
+      >
+        <p>© 2026 Wally Ahmed</p>
+        <p>Built with Astro · every claim on this page links to something you can open.</p>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // Count the hero stats up once, when they first appear.
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const stats = document.querySelectorAll<HTMLElement>('.stat');
+
+    if (!reduced && stats.length) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const el = entry.target as HTMLElement;
+            const target = Number(el.dataset.target ?? 0);
+            const started = performance.now();
+            const tick = (now: number) => {
+              const p = Math.min(1, (now - started) / 900);
+              const eased = 1 - Math.pow(1 - p, 3);
+              el.textContent = String(Math.round(target * eased));
+              if (p < 1) requestAnimationFrame(tick);
+            };
+            requestAnimationFrame(tick);
+            io.unobserve(el);
+          });
+        },
+        { threshold: 0.6 }
+      );
+      stats.forEach((el) => io.observe(el));
+    }
+  </script>
+</Base>

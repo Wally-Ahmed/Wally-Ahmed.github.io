@@ -1,0 +1,31 @@
+# MemPalace per-project files (issue #185)
+mempalace.yaml
+entities.json
+.mempalace/
+
+# graphify generated output (rebuilt by post-commit hook)
+graphify-out/
+
+# OS / editor
+.DS_Store
+
+# Dependencies & build output
+node_modules/
+dist/
+build/
+.env
+.env.*
+
+# Tooling-generated context files
+CLAUDE.local.md
+**/CLAUDE.local.md
+
+# Astro
+.astro/
+
+# Local-only: agent tooling, design docs and dev scripts.
+# This repository is public and ships only what renders the site.
+CLAUDE.md
+.claude/
+docs/
+scripts/

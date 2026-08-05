@@ -1,0 +1,134 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Near-black with a blue cast, so the cyan reads as emitted light rather than paint. */
+  --color-ink: #06070b;
+  --color-ink-2: #0b0d14;
+  --color-ink-3: #12151f;
+  --color-line: #1e2334;
+  --color-paper: #eceef3;
+  --color-muted: #8a93a6;
+
+  --color-cyan: #35e6d0;
+  --color-violet: #8b6cf6;
+  /* Gold appears on awards and nowhere else, so it always means "this was won". */
+  --color-gold: #f2b441;
+
+  --font-display: 'Bricolage Grotesque Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, SFMono-Regular, monospace;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background: var(--color-ink);
+  }
+
+  body {
+    background: var(--color-ink);
+    color: var(--color-paper);
+    font-family: var(--font-display);
+    font-variation-settings: 'wdth' 100;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: var(--color-cyan);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-cyan);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  /* Film grain over the whole page. Without it the flat near-black reads as
+     cheap on large OLED displays. */
+  .grain::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .gradient-text {
+    background: linear-gradient(105deg, var(--color-cyan) 0%, #6ee7f0 38%, var(--color-violet) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .rule-label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  .chip {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-line);
+    background: color-mix(in oklab, var(--color-ink-2) 80%, transparent);
+    color: var(--color-muted);
+    white-space: nowrap;
+  }
+
+  .chip-award {
+    border-color: color-mix(in oklab, var(--color-gold) 45%, transparent);
+    background: color-mix(in oklab, var(--color-gold) 12%, transparent);
+    color: var(--color-gold);
+    /* Award text is long ("Top 5 overall + Best Architecture"); left nowrap it
+       forces the whole grid wider than a phone viewport. */
+    white-space: normal;
+  }
+
+  /* Scroll reveal. Elements start hidden only when JS is present to reveal
+     them — otherwise `.reveal` never gets applied and content stays visible. */
+  .js .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  .js .reveal.is-in {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 0.7s var(--ease-out-expo),
+      transform 0.7s var(--ease-out-expo);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  /* Content must land in its final state, never mid-transform. */
+  .js .reveal,
+  .js .reveal.is-in {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

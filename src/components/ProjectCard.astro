@@ -1,0 +1,105 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  index: number;
+  title: string;
+  award: string;
+  event: string;
+  blurb: string;
+  hardPart: string;
+  stack: string[];
+  liveUrl: string;
+  sourceUrl: string;
+  screenshot: ImageMetadata;
+}
+
+const { index, title, award, event, blurb, hardPart, stack, liveUrl, sourceUrl, screenshot } =
+  Astro.props;
+
+// Alternate which side the screenshot lands on so the page has rhythm.
+const flipped = index % 2 === 1;
+const num = String(index + 1).padStart(2, '0');
+---
+
+<article class="reveal grid min-w-0 items-center gap-10 lg:grid-cols-12 lg:gap-16">
+  <div class={`lg:col-span-7 ${flipped ? 'lg:order-2' : ''}`}>
+    <a
+      href={liveUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="group relative block overflow-hidden rounded-xl border border-line bg-ink-2 transition-transform duration-500 ease-[var(--ease-out-expo)] hover:-translate-y-1.5"
+    >
+      {/* Browser chrome frames the screenshot as a real, running site. */}
+      <div class="flex items-center gap-2 border-b border-line bg-ink-3 px-4 py-2.5">
+        <span class="h-2.5 w-2.5 rounded-full bg-[#ff5f57]"></span>
+        <span class="h-2.5 w-2.5 rounded-full bg-[#febc2e]"></span>
+        <span class="h-2.5 w-2.5 rounded-full bg-[#28c840]"></span>
+        <span class="ml-3 truncate font-mono text-[0.72rem] text-muted">
+          {liveUrl.replace(/^https?:\/\//, '')}
+        </span>
+      </div>
+
+      <Image
+        src={screenshot}
+        alt={`Screenshot of the live ${title} site`}
+        widths={[560, 900, 1400]}
+        sizes="(max-width: 1024px) 92vw, 55vw"
+        class="w-full transition-transform duration-[900ms] ease-[var(--ease-out-expo)] group-hover:scale-[1.02]"
+        loading="lazy"
+      />
+
+      <div
+        class="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+      >
+      </div>
+      <span
+        class="pointer-events-none absolute bottom-4 left-1/2 -translate-x-1/2 translate-y-3 rounded-full border border-cyan/40 bg-ink/90 px-4 py-1.5 font-mono text-xs text-cyan opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100"
+      >
+        open the live demo →
+      </span>
+    </a>
+  </div>
+
+  <div class={`lg:col-span-5 ${flipped ? 'lg:order-1' : ''}`}>
+    <div class="mb-4 flex flex-wrap items-center gap-x-3 gap-y-2">
+      <span class="font-mono text-xs text-muted">{num}</span>
+      <span class="h-px w-8 bg-line"></span>
+      <span class="chip chip-award">★ {award}</span>
+    </div>
+
+    <h3 class="text-4xl font-semibold tracking-tight sm:text-5xl">{title}</h3>
+    <p class="mt-1 font-mono text-xs text-muted">{event}</p>
+
+    <p class="mt-5 text-lg leading-relaxed text-paper/85">{blurb}</p>
+
+    <div class="mt-5 border-l-2 border-cyan/40 pl-4">
+      <p class="rule-label mb-1.5">The hard part</p>
+      <p class="text-[0.95rem] leading-relaxed text-muted">{hardPart}</p>
+    </div>
+
+    <ul class="mt-6 flex flex-wrap gap-2">
+      {stack.map((tech) => <li class="chip">{tech}</li>)}
+    </ul>
+
+    <div class="mt-7 flex flex-wrap gap-3">
+      <a
+        href={liveUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="rounded-lg bg-paper px-5 py-3 text-sm font-semibold text-ink transition-colors hover:bg-cyan"
+      >
+        Live demo
+      </a>
+      <a
+        href={sourceUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="rounded-lg border border-line px-5 py-3 text-sm font-semibold text-paper transition-colors hover:border-cyan hover:text-cyan"
+      >
+        Source
+      </a>
+    </div>
+  </div>
+</article>
