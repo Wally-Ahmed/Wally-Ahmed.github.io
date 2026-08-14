@@ -29,3 +29,5 @@ CLAUDE.md
 .claude/
 docs/
 scripts/
+HANDOFF.md
+.playwright-mcp/
